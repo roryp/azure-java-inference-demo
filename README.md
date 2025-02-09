@@ -4,9 +4,9 @@ This project demonstrates a basic chat application using Azure OpenAI services. 
 
 ## Prerequisites
 
-- Java Development Kit (JDK) 8 or later
+- Java Development Kit (JDK) 21 or later
 - Maven
-- Azure OpenAI account with an endpoint and API key
+- Azure OpenAI account with an inference endpoint and API key
 
 ## Setup
 
