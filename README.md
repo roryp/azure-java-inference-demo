@@ -20,6 +20,26 @@ Follow these steps to run the samples:
    cd azure-java-inference-demo
    ```
 
+2. **Set Up Environment Variables**  
+   Ensure you have the following environment variables set:  
+   ```bash
+   export AZURE_OPENAI_ENDPOINT=<your_azure_openai_endpoint>
+   export AZURE_OPENAI_API_KEY=<your_azure_openai_api_key>
+   ```
+
+3. **Build the Project**  
+   Use Maven to build the project:  
+   ```bash
+   mvn clean install
+   ```
+
+4. **Run the Samples**  
+   Execute the following commands to run the samples:  
+   ```bash
+   java -cp target/demo-1.0-SNAPSHOT.jar com.example.BasicChatSample
+   java -cp target/demo-1.0-SNAPSHOT.jar com.example.BasicChatStreamSample
+   ```
+
 ---
 
 ## 1. Understanding Azure Inference Endpoints
