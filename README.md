@@ -9,6 +9,19 @@ In today’s fast-paced AI landscape, real-time inference is key to unlocking po
 
 ---
 
+## Getting Started
+
+Follow these steps to run the samples:
+
+1. **Clone the Repository**  
+   Open a terminal and run:  
+   ```bash
+   git clone https://github.com/roryp/azure-java-inference-demo.git
+   cd azure-java-inference-demo
+   ```
+
+---
+
 ## 1. Understanding Azure Inference Endpoints
 
 Azure inference endpoints are purpose-built to handle AI model predictions. Unlike typical REST endpoints, they are optimized for:
