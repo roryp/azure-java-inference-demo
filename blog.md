@@ -39,6 +39,8 @@ Given the sensitivity of the models and the data they process, inference endpoin
 ### Code Examples: Demonstrating Technical Integration
 
 The following examples show how to integrate with Azure inference endpoints using Java, emphasizing the advanced aspects of both synchronous and streaming interactions.
+> Before you start, create an inference on Azure, by following these steps:
+> [Azure documentation](https://learn.microsoft.com/en-us/azure/ai-foundry/model-inference/how-to/github/create-model-deployments?tabs=java).
 
 #### **Basic Chat Application**
 
