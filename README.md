@@ -1,6 +1,6 @@
-# Basic Chat Sample
+# Basic Chat and Streaming Chat Sample
 
-This project demonstrates a basic chat application using Azure OpenAI services. The application sends a user message to the OpenAI inference endpoint and prints the response. It serves as a simple example of how to integrate Azure OpenAI inference endpoints into a Java application.
+This project demonstrates two types of chat applications using Azure OpenAI services: a basic chat application and a streaming chat application. The basic chat application sends a user message to the OpenAI inference endpoint and prints the response. The streaming chat application streams responses from the OpenAI inference endpoint in real-time. These applications serve as simple examples of how to integrate Azure OpenAI inference endpoints into a Java application.
 
 ## Prerequisites
 
@@ -37,10 +37,16 @@ This project demonstrates a basic chat application using Azure OpenAI services. 
  mvn clean install
 ```
 
-2. Run the application:
+2. Run the basic chat application:
 
 ```sh
  mvn exec:java -Dexec.mainClass="com.example.BasicChatSample"
+```
+
+3. Run the streaming chat application:
+
+```sh
+ mvn exec:java -Dexec.mainClass="com.example.BasicChatStreamSample"
 ```
 
 ## Usage
