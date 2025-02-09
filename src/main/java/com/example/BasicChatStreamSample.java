@@ -16,7 +16,7 @@ import com.azure.core.util.IterableStream;
 
 public final class BasicChatStreamSample {
     public static void main(String[] args) {
-        // Retrieve the endpoint and API key from your environment variables.
+        // Retrieve the endpoint and API key from environment variables.
         String endpoint = System.getenv("AZURE_OPENAI_ENDPOINT");
         String apiKey = System.getenv("AZURE_OPENAI_API_KEY");
 
@@ -31,28 +31,25 @@ public final class BasicChatStreamSample {
         chatMessages.add(new ChatRequestSystemMessage("You are a helpful assistant."));
         chatMessages.add(new ChatRequestUserMessage("Explain Riemann's conjecture in 1 paragraph."));
 
-        // Create the completions options and specify your deployment/model name.
+        // Create the chat completions options and set your model (deployment) name.
         ChatCompletionsOptions options = new ChatCompletionsOptions(chatMessages);
         options.setModel("DeepSeek-R1");
 
-        // Invoke the streaming method. Note that completeStream returns an IterableStream
-        // of StreamingChatCompletionsUpdate.
+        // Invoke the streaming method.
         IterableStream<StreamingChatCompletionsUpdate> stream = client.completeStream(options);
 
         // Process each streaming update as it arrives.
         stream.stream().forEach(update -> {
-            // Each update contains a streaming choice; check if it is not null.
-            if (update.getChoice() == null) {
+            // Check that the update contains at least one choice.
+            if (update.getChoices() == null || update.getChoices().isEmpty()) {
                 return;
             }
-            // Retrieve the delta update (partial content).
-            StreamingChatResponseMessageUpdate delta = update.getChoice().getDelta();
+            // Retrieve the first choice's delta update.
+            StreamingChatResponseMessageUpdate delta = update.getChoices().get(0).getDelta();
             if (delta != null) {
-                // Print the role if provided (typically appears once at the start).
                 if (delta.getRole() != null) {
                     System.out.println("Role: " + delta.getRole());
                 }
-                // Print any incremental content.
                 if (delta.getContent() != null) {
                     System.out.print(delta.getContent());
                 }
