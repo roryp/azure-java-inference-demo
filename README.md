@@ -1,4 +1,4 @@
-> Before you start, create an inference on Azure, by following these steps:  
+> Before you start, create an inference endpoint on Azure, by following these steps:  
 > [Azure documentation](https://learn.microsoft.com/en-us/azure/ai-foundry/model-inference/how-to/github/create-model-deployments?tabs=java).
 
 ---
