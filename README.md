@@ -1,7 +1,8 @@
 ![Demo](demo.webp)
 
 > To run these demos, you will need to create an inference endpoint on Azure, by following these steps:  
-> [Azure documentation](https://learn.microsoft.com/en-us/azure/ai-foundry/model-inference/how-to/github/create-model-deployments?tabs=java).
+> [Setup](https://learn.microsoft.com/en-us/azure/ai-foundry/model-inference/how-to/github/create-model-deployments?tabs=java).
+> [Models as a service  - Inferernce endpoints ](https://learn.microsoft.com/en-us/azure/ai-studio/how-to/model-catalog-overview#models-as-a-service-pay-as-you-go)
 
 ---
 
