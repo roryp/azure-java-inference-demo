@@ -29,7 +29,7 @@ public final class BasicChatStreamSample {
         // Prepare the chat messages.
         List<ChatRequestMessage> chatMessages = new ArrayList<>();
         chatMessages.add(new ChatRequestSystemMessage("You are a helpful assistant."));
-        chatMessages.add(new ChatRequestUserMessage("Explain Riemann's conjecture in 1 paragraph."));
+        chatMessages.add(new ChatRequestUserMessage("Maria's father has 4 daughters: Spring, Autumn, Winter. What is the name of the fourth daughter?"));
 
         // Create the chat completions options and set your model (deployment) name.
         ChatCompletionsOptions options = new ChatCompletionsOptions(chatMessages);
