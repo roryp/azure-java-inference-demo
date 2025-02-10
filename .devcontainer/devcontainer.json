@@ -1,6 +1,12 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node
 {
-  "name": "DeepSeek on Azure with Inference",
+  "name": "DeepSeek on Azure",
+
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+
+  // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
     "ghcr.io/devcontainers/features/java:1": {
       "version": "23-tem",
@@ -8,15 +14,17 @@
       "installGradle": "false"
     }
   },
+
+  // Configure tool-specific properties.
   "customizations": {
     "vscode": {
       "extensions": [
+        "ms-azuretools.vscode-docker",
         "vscjava.vscode-java-pack"
       ]
     }
   },
-  "forwardPorts": [6333, 8080, 11434],
-  "hostRequirements": {
-    "memory": "8gb"
-  }
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [6333, 8080, 11434]
 }
