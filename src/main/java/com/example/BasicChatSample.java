@@ -30,7 +30,7 @@ public final class BasicChatSample {
 
         List<ChatRequestMessage> chatMessages = new ArrayList<>();
         chatMessages.add(new ChatRequestSystemMessage("You are a helpful assistant"));
-        chatMessages.add(new ChatRequestUserMessage("Explain Riemann's conjecture in 1 paragraph"));
+        chatMessages.add(new ChatRequestUserMessage("Can you explain how DeepSeek adds transparency to the AI’s thought process when generating answers?"));
 
         ChatCompletionsOptions options = new ChatCompletionsOptions(chatMessages);
         options.setModel("DeepSeek-R1");  // Explicitly set the model (deployment) name
