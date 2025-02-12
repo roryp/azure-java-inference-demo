@@ -14,8 +14,6 @@ import com.azure.ai.inference.models.StreamingChatResponseMessageUpdate;
 import com.azure.core.credential.AzureKeyCredential;
 import com.azure.core.util.IterableStream;
 
-// Create the inference endpoint by following this tutorial:
-// https://learn.microsoft.com/en-us/azure/ai-foundry/model-inference/concepts/endpoints
 public final class BasicChatStreamSample {
     public static void main(String[] args) {
         // Retrieve the endpoint and API key from environment variables
