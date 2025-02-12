@@ -16,7 +16,8 @@ import com.azure.core.util.IterableStream;
 
 public final class BasicChatStreamSample {
     public static void main(String[] args) {
-        // Retrieve the endpoint and API key from environment variables.
+        // Retrieve the endpoint and API key from environment variables
+        // create the inference endpoint by following this tutorial https://learn.microsoft.com/en-us/azure/ai-foundry/model-inference/concepts/endpoints
         String endpoint = System.getenv("AZURE_OPENAI_ENDPOINT");
         String apiKey = System.getenv("AZURE_OPENAI_API_KEY");
 
