@@ -1,6 +1,5 @@
 package com.example;
 
-// Copilot Chat Prompt: "Import all necessary classes from the Azure AI Inference SDK and Azure core libraries."
 import com.azure.ai.inference.ChatCompletionsClient;
 import com.azure.ai.inference.ChatCompletionsClientBuilder;
 import com.azure.ai.inference.models.ChatCompletionsOptions;
@@ -16,41 +15,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
- * Explanation of the Annotations
-Imports Section:
-Copilot Chat Prompt Example:
-"Import all necessary classes from the Azure AI Inference SDK and Azure core libraries."
-This tells Copilot Chat to include the correct classes.
-
-Environment Variables:
-Copilot Chat Prompt Example:
-"Retrieve the endpoint and API key from the environment variables AZURE_OPENAI_ENDPOINT and AZURE_OPENAI_API_KEY."
-This ensures the program securely gets configuration details.
-
-Client Initialization:
-Copilot Chat Prompt Example:
-"Build a ChatCompletionsClient using ChatCompletionsClientBuilder with the AzureKeyCredential and endpoint."
-This creates a client instance ready to call the API.
-
-Message Preparation:
-Copilot Chat Prompt Example:
-"Prepare a list of chat messages including a system message and a user message."
-This builds the conversation context.
-
-Options Setup:
-Copilot Chat Prompt Example:
-"Create a ChatCompletionsOptions object with the chat messages and set its model to 'DeepSeek-R1'."
-This configures the API call with the required model.
-
-Streaming API Call and Processing:
-Copilot Chat Prompt Example:
-"Invoke the streaming chat completions method and process each update by checking for choices and printing the role and content if available."
-This handles the streaming response.
+ * Azure AI Inference Chat Stream Sample
+ *
+ * Imports:
+ *   Import necessary classes from the Azure AI Inference SDK and Azure core libraries.
+ *
+ * Environment Variables:
+ *   Retrieve AZURE_OPENAI_ENDPOINT and AZURE_OPENAI_API_KEY for configuration.
+ *
+ * Client Initialization:
+ *   Build a ChatCompletionsClient using ChatCompletionsClientBuilder with AzureKeyCredential and endpoint.
+ *
+ * Message Preparation:
+ *   Prepare a list of chat messages with a system message and a user message.
+ *
+ * Options Setup:
+ *   Create a ChatCompletionsOptions object with the messages and set the model to 'DeepSeek-R1'.
+ *
+ * Streaming API Call and Processing:
+ *   Invoke the streaming chat completions method and process each update:
+ *     - Print the role on a new line if available.
+ *     - Append the content (without an extra newline) for human-readable output.
  */
-
 public final class BasicChatStreamSample {
     public static void main(String[] args) {
-        // Copilot Chat Prompt: "Retrieve the endpoint and API key from the environment variables AZURE_OPENAI_ENDPOINT and AZURE_OPENAI_API_KEY."
+        // Retrieve the endpoint and API key from environment variables.
         String endpoint = System.getenv("AZURE_OPENAI_ENDPOINT");
         String apiKey = System.getenv("AZURE_OPENAI_API_KEY");
 
@@ -60,51 +49,50 @@ public final class BasicChatStreamSample {
             System.exit(1);
         }
 
-        // Copilot Chat Prompt: "Build a ChatCompletionsClient using ChatCompletionsClientBuilder with the AzureKeyCredential and endpoint."
+        // Build the ChatCompletionsClient using the provided endpoint and API key.
         ChatCompletionsClient client = new ChatCompletionsClientBuilder()
                 .credential(new AzureKeyCredential(apiKey))
                 .endpoint(endpoint)
                 .buildClient();
 
-        // Copilot Chat Prompt: "Prepare a list of chat messages including a system message and a user message."
+        // Prepare chat messages: one system message and one user message.
         List<ChatRequestMessage> chatMessages = new ArrayList<>();
-        chatMessages.add(new ChatRequestSystemMessage("system_prompt = \"\"\"\r\n" + //
-                        "You are an AI that provides information in JSON format.\r\n" + //
-                        "\r\n" + //
-                        "EXAMPLE INPUT:\r\n" + //
-                        "What is the capital of France?\r\n" + //
-                        "\r\n" + //
-                        "EXAMPLE JSON OUTPUT:\r\n" + //
-                        "{\r\n" + //
-                        "    \"question\": \"What is the capital of France?\",\r\n" + //
-                        "    \"answer\": \"Paris\"\r\n" + //
-                        "}\r\n" + //
-                        "\"\"\"\r\n" + //
+        chatMessages.add(new ChatRequestSystemMessage("system_prompt = \"\"\"\r\n" +
+                        "You are an AI that provides information in JSON format.\r\n" +
+                        "\r\n" +
+                        "EXAMPLE INPUT:\r\n" +
+                        "What is the capital of France?\r\n" +
+                        "\r\n" +
+                        "EXAMPLE JSON OUTPUT:\r\n" +
+                        "{\r\n" +
+                        "    \"question\": \"What is the capital of France?\",\r\n" +
+                        "    \"answer\": \"Paris\"\r\n" +
+                        "}\r\n" +
+                        "\"\"\"\r\n" +
                         "."));
         
         chatMessages.add(new ChatRequestUserMessage("Maria's father has 4 daughters: Spring, Autumn, Winter. What is the name of the fourth daughter?"));
 
-        // Copilot Chat Prompt: "Create a ChatCompletionsOptions object with the chat messages and set its model to 'DeepSeek-R1'."
+        // Create ChatCompletionsOptions with the prepared messages and set the model.
         ChatCompletionsOptions options = new ChatCompletionsOptions(chatMessages);
         options.setModel("DeepSeek-R1");
 
-        // Copilot Chat Prompt: "Invoke the streaming chat completions method and get an IterableStream of StreamingChatCompletionsUpdate."
+        // Invoke the streaming API to obtain chat completions.
         IterableStream<StreamingChatCompletionsUpdate> stream = client.completeStream(options);
 
-        // Copilot Chat Prompt: "Process each streaming update by checking for choices and printing the role and content if available. dont print new line content as its human readable"
+        // Process each update in the stream.
         stream.stream().forEach(update -> {
-            // Ensure the update has at least one choice.
             if (update.getChoices() == null || update.getChoices().isEmpty()) {
                 return;
             }
-            // Retrieve the first choice's delta update.
+            // Retrieve the delta update from the first choice.
             StreamingChatResponseMessageUpdate delta = update.getChoices().get(0).getDelta();
             if (delta != null) {
-                // If the delta contains a role, print it to a new line.
+                // If the delta contains a role, print it on a new line.
                 if (delta.getRole() != null) {
                     System.out.println("Role: " + delta.getRole());
                 }
-                // If the delta contains content, append it.
+                // Append the delta content if available.
                 if (delta.getContent() != null) {
                     System.out.print(delta.getContent());
                 }
