@@ -28,6 +28,8 @@ import java.util.List;
  *
  * Message Preparation:
  *   Prepare a list of chat messages with a system message and a user message.
+ *   System message suggests a json format for responses.
+ *   User message is a riddle about Maria's father's daughters.
  *
  * Options Setup:
  *   Create a ChatCompletionsOptions object with the messages and set the model to 'DeepSeek-R1'.
