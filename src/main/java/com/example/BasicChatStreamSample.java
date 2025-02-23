@@ -6,10 +6,8 @@ import com.azure.ai.inference.models.ChatCompletionsOptions;
 import com.azure.ai.inference.models.ChatRequestMessage;
 import com.azure.ai.inference.models.ChatRequestSystemMessage;
 import com.azure.ai.inference.models.ChatRequestUserMessage;
-import com.azure.ai.inference.models.StreamingChatCompletionsUpdate;
 import com.azure.ai.inference.models.StreamingChatResponseMessageUpdate;
 import com.azure.core.credential.AzureKeyCredential;
-import com.azure.core.util.IterableStream;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +27,14 @@ import java.util.List;
  * Message Preparation:
  *   Prepare a list of chat messages with a system message and a user message.
  *   System message suggests a json format for responses.
- *   User message is a riddle about Maria's father's daughters.
+ *   User message is a riddle "Maria's father has 4 daughters: Spring, Autumn, Winter. What is the name of the fourth daughter?".
  *
  * Options Setup:
  *   Create a ChatCompletionsOptions object with the messages and set the model to 'DeepSeek-R1'.
  *
  * Streaming API Call and Processing:
- *   Invoke the streaming chat completions method and process each update:
+ *   Invoke the streaming chat completions client.completeStream(options).stream().forEach to process updates.
+ *   For each update, check if choices are available and retrieve the delta from the first choice.
  *     - Print the role on a new line if available.
  *     - Append the content (without an extra newline) for human-readable output.
  */
@@ -79,11 +78,8 @@ public final class BasicChatStreamSample {
         ChatCompletionsOptions options = new ChatCompletionsOptions(chatMessages);
         options.setModel("DeepSeek-R1");
 
-        // Invoke the streaming API to obtain chat completions.
-        IterableStream<StreamingChatCompletionsUpdate> stream = client.completeStream(options);
-
         // Process each update in the stream.
-        stream.stream().forEach(update -> {
+        client.completeStream(options).stream().forEach(update -> {
             if (update.getChoices() == null || update.getChoices().isEmpty()) {
                 return;
             }
