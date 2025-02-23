@@ -68,7 +68,20 @@ public final class BasicChatStreamSample {
 
         // Copilot Chat Prompt: "Prepare a list of chat messages including a system message and a user message."
         List<ChatRequestMessage> chatMessages = new ArrayList<>();
-        chatMessages.add(new ChatRequestSystemMessage("You are a helpful assistant."));
+        chatMessages.add(new ChatRequestSystemMessage("system_prompt = \"\"\"\r\n" + //
+                        "You are an AI that provides information in JSON format.\r\n" + //
+                        "\r\n" + //
+                        "EXAMPLE INPUT:\r\n" + //
+                        "What is the capital of France?\r\n" + //
+                        "\r\n" + //
+                        "EXAMPLE JSON OUTPUT:\r\n" + //
+                        "{\r\n" + //
+                        "    \"question\": \"What is the capital of France?\",\r\n" + //
+                        "    \"answer\": \"Paris\"\r\n" + //
+                        "}\r\n" + //
+                        "\"\"\"\r\n" + //
+                        "."));
+        
         chatMessages.add(new ChatRequestUserMessage("Maria's father has 4 daughters: Spring, Autumn, Winter. What is the name of the fourth daughter?"));
 
         // Copilot Chat Prompt: "Create a ChatCompletionsOptions object with the chat messages and set its model to 'DeepSeek-R1'."
@@ -78,7 +91,7 @@ public final class BasicChatStreamSample {
         // Copilot Chat Prompt: "Invoke the streaming chat completions method and get an IterableStream of StreamingChatCompletionsUpdate."
         IterableStream<StreamingChatCompletionsUpdate> stream = client.completeStream(options);
 
-        // Copilot Chat Prompt: "Process each streaming update by checking for choices and printing the role and content if available."
+        // Copilot Chat Prompt: "Process each streaming update by checking for choices and printing the role and content if available. dont print new line content as its human readable"
         stream.stream().forEach(update -> {
             // Ensure the update has at least one choice.
             if (update.getChoices() == null || update.getChoices().isEmpty()) {
@@ -87,11 +100,11 @@ public final class BasicChatStreamSample {
             // Retrieve the first choice's delta update.
             StreamingChatResponseMessageUpdate delta = update.getChoices().get(0).getDelta();
             if (delta != null) {
-                // If the delta contains a role, print it.
+                // If the delta contains a role, print it to a new line.
                 if (delta.getRole() != null) {
                     System.out.println("Role: " + delta.getRole());
                 }
-                // If the delta contains content, print it.
+                // If the delta contains content, append it.
                 if (delta.getContent() != null) {
                     System.out.print(delta.getContent());
                 }
