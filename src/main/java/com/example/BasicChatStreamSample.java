@@ -90,7 +90,7 @@ public final class BasicChatStreamSample {
                 if (delta.getRole() != null) {
                     System.out.println("Role: " + delta.getRole());
                 }
-                // Append the delta content if available. we print each delta content without an extra new line.
+                // Append the delta content if available.
                 if (delta.getContent() != null) {
                     System.out.print(delta.getContent());
                 }
